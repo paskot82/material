@@ -771,8 +771,8 @@ fi
 if [[ "$material" == "true" ]];then
 
 
-massa_mewka="1153.8"
-massa_preform="10.5"
+#massa_mewka="1153.8"
+#massa_preform="10.5"
 
 echo "massa_mewka: $massa_mewka"
 massa_korobki_gr="$(echo "scale=4; ${max_fill} * ${massa_preform}" | bc)"
