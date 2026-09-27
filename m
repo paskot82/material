@@ -803,18 +803,30 @@ echo "H:M      : $(to_hms "$sec_mewok")"
 echo "end_mewok: $end_mewok  ($(to_hms ${end_mewok}))"
 #echo " - $(to_hms ${sek_mewok}) |  "
 
+#echo " - $(to_hms ${sek_mewok}) |  "
+
 first_mewok_start=$end_mewok
 while [ $first_mewok_start -gt $current_shift_start ]; do
-first_mewok_start=$(($end_mewok-$sec_mewok)) 
+first_mewok_start=$(($first_mewok_start-$sec_mewok))
+echo "$(to_hms ${first_mewok_start}) $first_mewok_start-$sec_mew@
 done
 
-echo "first_mewok_start: $first_mewok_start ($(to_hms ${first_mewok_start}))"
+echo "first_mewok_start: $first_mewok_start ($(to_hms ${first_me@
+
 
 time_mewok=$first_mewok_start
+ne_moi_mewok=$(($time_mewok-$sec_mewok))
+
+echo " + ${RED} $(to_hms ${ne_moi_mewok}) ${NC}"
+
+echo " + ${BLUE} $(to_hms ${time_mewok}) ${NC}"
+
 while [ $time_mewok -lt $current_shift_end ]; do
-time_mewok=$(($time_mewok+$sek_mewok)) 
+time_mewok=$(($time_mewok+$sec_mewok))
 echo " + ${BLUE} $(to_hms ${time_mewok}) ${NC}($time_mewok) "
 done
+ne_moi_mewok=$(($time_mewok+$sec_mewok))
+echo " + ${RED} $(to_hms ${ne_moi_mewok}) ${NC}"
 
 fi
 show_errors
