@@ -636,7 +636,8 @@ shift2_end=$((24*3600 + 6*3600 + 30*60)) # 06:30 next day
 first_end_sec=$((end_sec - (box_num - 1) * tsikl_sec))
 #echo "first_end_sec: $first_end_sec"
 if [ $end_sec -ge $shift1_start ] && [ $end_sec -le $shift1_end ]; then
-    current_shift_end=$shift1_end
+    current_shift_start=$shift1_start
+	current_shift_end=$shift1_end
     next_shift_start=$shift2_start
     next_shift_label="второй смены"
 	cmena=1
@@ -647,6 +648,7 @@ else
 		
 
     fi
+	current_shift_start=$shift2_start
     current_shift_end=$shift2_end
     next_shift_start=$(($shift1_start + 24*3600))
     next_shift_label="первой смены следующего дня"
@@ -800,6 +802,20 @@ echo "H:M      : $(to_hms "$sec_mewok")"
 
 echo "end_mewok: $end_mewok  ($(to_hms ${end_mewok}))"
 #echo " - $(to_hms ${sek_mewok}) |  "
+
+first_mewok_start=$end_mewok
+while [ $first_mewok_start -lt $current_shift_start ]; do
+first_mewok_start=$(($end_mewok-$sec_mewok)) 
+done
+
+echo "first_mewok_start: $first_mewok_start ($(to_hms ${first_mewok_start}))
+
+time_mewok=$first_mewok_start
+while [ $time_mewok -gt $current_shift_end ]; do
+time_mewok=$(($time_mewok+$sek_mewok)) 
+echo " + ${BLUE} $(to_hms ${time_mewok}) ${NC}($time_mewok) "
+done
+
 fi
 show_errors
 #info
