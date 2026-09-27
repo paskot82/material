@@ -811,7 +811,7 @@ first_mewok_start=$(($first_mewok_start-$sec_mewok))
 echo "$(to_hms ${first_mewok_start}) $first_mewok_start-$sec_mewok
 done
 
-echo "first_mewok_start: $first_mewok_start ($(to_hms ${first_mewok})"
+echo "first_mewok_start: $first_mewok_start ($(to_hms ${first_mewok_start}))"
 
 
 time_mewok=$first_mewok_start
