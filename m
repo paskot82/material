@@ -192,7 +192,7 @@ cycle_box_shot="7.93"
 time_input="08:52:57"
 }
 
-for_test
+#for_test
 
 
 
@@ -804,14 +804,14 @@ echo "end_mewok: $end_mewok  ($(to_hms ${end_mewok}))"
 #echo " - $(to_hms ${sek_mewok}) |  "
 
 first_mewok_start=$end_mewok
-while [ $first_mewok_start -lt $current_shift_start ]; do
+while [ $first_mewok_start -gt $current_shift_start ]; do
 first_mewok_start=$(($end_mewok-$sec_mewok)) 
 done
 
 echo "first_mewok_start: $first_mewok_start ($(to_hms ${first_mewok_start}))"
 
 time_mewok=$first_mewok_start
-while [ $time_mewok -gt $current_shift_end ]; do
+while [ $time_mewok -lt $current_shift_end ]; do
 time_mewok=$(($time_mewok+$sek_mewok)) 
 echo " + ${BLUE} $(to_hms ${time_mewok}) ${NC}($time_mewok) "
 done
