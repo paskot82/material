@@ -808,10 +808,10 @@ echo "end_mewok: $end_mewok  ($(to_hms ${end_mewok}))"
 first_mewok_start=$end_mewok
 while [ $first_mewok_start -gt $current_shift_start ]; do
 first_mewok_start=$(($first_mewok_start-$sec_mewok))
-echo "$(to_hms ${first_mewok_start}) $first_mewok_start-$sec_mew@
+echo "$(to_hms ${first_mewok_start}) $first_mewok_start-$sec_mewok
 done
 
-echo "first_mewok_start: $first_mewok_start ($(to_hms ${first_me@
+echo "first_mewok_start: $first_mewok_start ($(to_hms ${first_mewok})"
 
 
 time_mewok=$first_mewok_start
