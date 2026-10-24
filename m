@@ -545,6 +545,10 @@ fi
 
 
 info() {
+if [ $material == "true" ];then
+
+fi
+
 echo
 echo ${GREEN}
 echo "            Shift: $cmena"
