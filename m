@@ -540,13 +540,12 @@ echo "    Total Preform:  $max_fill"
 echo "     current_fill:  $current_fill"
 echo "Preform in 1 drop:  $per_stroke"
 if [[ $material == "true" ]];then
-echo "            Drops: +$ydarov"
-echo ${GREEN}
-echo "      Massa 1 box: $massa_korobki_kg kg."
-echo "  Time 1 Material: ${BLUE}$(to_hms "$sec_mewok")${GREEN}"
+echo -n ${GREEN}
+echo "      Massa 1 box:  $massa_korobki_kg kg."
+echo "  Time 1 ${BLUE}Material${NC}:  ${BLUE}$(to_hms "$sec_mewok")${GREEN}"
 fi
 echo "      Time 1 drop:  $cycle_time"
-echo "      Time 1  box:  ${BLUE}$tsikl${GREEN}"
+echo "      Time 1  ${BLUE}box${NC}:  ${BLUE}$tsikl${GREEN}"
 echo "_______"
 
 echo $NC
