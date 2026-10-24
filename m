@@ -164,22 +164,6 @@ read massa_preform massa_mewka time_mewka
 if [[ -z $massa_preform ]];then
 material="false"
 fi
-
-#massa_preform="10.5"
-#massa_mewka="1153.8"
-
-
-meh_h="$(echo $time_mewka | awk -F":" '{print $1}')"
-meh_m="$(echo $time_mewka | awk -F":" '{print $2}')"
-
-#meh_h="13"
-#meh_m="01"
-meh_s="30"
-
-end_mewok=$(echo "scale=3; $meh_h * 3600 + $meh_m * 60 + $meh_s" | bc | awk -F"[.|,]" '{print $1}')
-
-
-
 fi
 
 for_test() {
@@ -545,9 +529,7 @@ fi
 
 
 info() {
-if [ $material == "true" ];then
 
-fi
 
 echo
 echo ${GREEN}
@@ -557,8 +539,14 @@ echo "            Drops: +$ydarov"
 echo "    Total Preform:  $max_fill"
 echo "     current_fill:  $current_fill"
 echo "Preform in 1 drop:  $per_stroke"
+if [[ $material == "true" ]];then
+echo "            Drops: +$ydarov"
+echo ${GREEN}
+echo "      Massa 1 box: $massa_korobki_kg kg."
+echo "  Time 1 Material: ${BLUE}$(to_hms "$sec_mewok")${GREEN}"
+fi
 echo "      Time 1 drop:  $cycle_time"
-echo "      Time 1  box:  $tsikl"
+echo "      Time 1  box:  ${BLUE}$tsikl${GREEN}"
 echo "_______"
 
 echo $NC
@@ -677,6 +665,44 @@ else
 current_c120=$(( c120_end - (box_num - 1) * (max_fill / per_stroke) ))
 fi
 
+
+
+
+
+if [[ $material == "true" ]];then
+meh_h="$(echo $time_mewka | awk -F":" '{print $1}')"
+meh_m="$(echo $time_mewka | awk -F":" '{print $2}')"
+meh_s="30"
+
+end_mewok=$(echo "scale=3; $meh_h * 3600 + $meh_m * 60 + $meh_s" | bc | awk -F"[.|,]" '{print $1}')
+massa_korobki_gr="$(echo "scale=4; ${max_fill} * ${massa_preform}" | bc)"
+massa_korobki_kg=$(echo "scale=4; ${massa_korobki_gr} / 1000" | bc)
+sec_mewok="$(echo "scale=4; ${massa_mewka} / $massa_korobki_kg * ${tsikl_sec}" | bc | awk -F"[.|,]" '{print $1}' )"
+min_mewok="$(echo "scale=4; $sec_mewok / 60" | bc)"
+
+first_mewok_start=$end_mewok
+while [ $first_mewok_start -gt $current_shift_start ]; do
+first_mewok_start=$(($first_mewok_start-$sec_mewok))
+#echo "$(to_hms ${first_mewok_start}) $first_mewok_start-$sec_mewok"
+done
+
+time_mewok=$first_mewok_start
+ne_moi_mewok=$(($time_mewok-$sec_mewok))
+
+echo "massa_mewka     : $massa_mewka"
+echo "max_fill        : $max_fill"
+echo "tsikl_sec       : $tsikl_sec"
+echo "massa_preform   : $massa_preform"
+echo "massa_korobki_gr: $massa_korobki_gr"
+echo "massa_korobki_kg: $massa_korobki_kg"
+echo "sek_mewok: $sec_mewok"
+echo "min_mewok: ${min_mewok}"
+echo "H:M      : $(to_hms "$sec_mewok")"
+echo "end_mewok: $end_mewok  ($(to_hms ${end_mewok}))"
+echo "first_mewok_start: $first_mewok_start ($(to_hms ${first_mewok_start}))"
+fi
+echo
+
 echo "   time_input:  $time_input"
 echo "         c120:  $c120"
 echo "     c120_end:  $c120_end"
@@ -688,6 +714,10 @@ echo "      end_sec:  $end_sec  ($(to_hms $end_sec))"
 echo "  current_end:  $current_end  ($(to_hms $current_end))"
 echo "Preform in box:  $current_fill"
 echo
+
+
+
+
 
 
 info
@@ -778,54 +808,6 @@ fi
 
 if [[ "$material" == "true" ]];then
 
-#massa_mewka="1153.8"
-#massa_preform="10.5"
-
-echo "massa_mewka     : $massa_mewka"
-massa_korobki_gr="$(echo "scale=4; ${max_fill} * ${massa_preform}" | bc)"
-massa_korobki_kg=$(echo "scale=4; ${massa_korobki_gr} / 1000" | bc)
-
-
-echo "max_fill        : $max_fill"
-echo "tsikl_sec       : $tsikl_sec"
-echo "massa_preform   : $massa_preform"
-echo "massa_korobki_gr: $massa_korobki_gr"
-echo "massa_korobki_kg: $massa_korobki_kg"
-
-
-
-
-
-
-sec_mewok="$(echo "scale=4; ${massa_mewka} / $massa_korobki_kg * ${tsikl_sec}" | bc | awk -F"[.|,]" '{print $1}' )"
-min_mewok="$(echo "scale=4; $sec_mewok / 60" | bc)"
-
-
-echo
-echo "sek_mewok: $sec_mewok"
-echo "min_mewok: ${min_mewok}"
-
-echo "H:M      : $(to_hms "$sec_mewok")"
-
-echo "end_mewok: $end_mewok  ($(to_hms ${end_mewok}))"
-#echo " - $(to_hms ${sek_mewok}) |  "
-
-#echo " - $(to_hms ${sek_mewok}) |  "
-
-first_mewok_start=$end_mewok
-while [ $first_mewok_start -gt $current_shift_start ]; do
-first_mewok_start=$(($first_mewok_start-$sec_mewok))
-echo "$(to_hms ${first_mewok_start}) $first_mewok_start-$sec_mewok"
-done
-
-echo "first_mewok_start: $first_mewok_start ($(to_hms ${first_mewok_start}))"
-
-
-time_mewok=$first_mewok_start
-ne_moi_mewok=$(($time_mewok-$sec_mewok))
-
-#echo " + ${RED} $(to_hms ${ne_moi_mewok}) ${NC}"
-
 echo " + ${YELLOW} $(to_hms ${time_mewok}) ${NC}"
 
 while [ $time_mewok -lt $current_shift_end ]; do
@@ -839,7 +821,7 @@ else
 fi
 echo "${NC} + ${CCC} $(to_hms ${time_mewok}) ${NC}($time_mewok) "
 done
-ne_moi_mewok=$(($time_mewok+$sec_mewok))
+#ne_moi_mewok=$(($time_mewok+$sec_mewok))
 #echo " + ${RED} $(to_hms ${ne_moi_mewok}) ${NC}"
 
 fi
