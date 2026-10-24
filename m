@@ -154,13 +154,17 @@ add_seconsd="40" # сколько ударов идет после "0" до см
 if [ "$1" == "m" ];then
 unset box_num
 material="true"
-echo "_________Материал!________"
-echo "напиши:" 
-echo " массу приформы | массу мешка с материалом | время смены мешка"
-echo "пример:"
+echo "________MATERIAL!________"
+echo "  massa  |   massa   | material"
+echo " priform | materials | start time"
+echo "exempl:"
 echo "${RED}10.5 1150 13:05${NC}"
 
 read massa_preform massa_mewka time_mewka
+if [[ -z $massa_preform ]];then
+material="false"
+fi
+
 #massa_preform="10.5"
 #massa_mewka="1153.8"
 
@@ -773,7 +777,7 @@ if [[ "$material" == "true" ]];then
 #massa_mewka="1153.8"
 #massa_preform="10.5"
 
-echo "massa_mewka: $massa_mewka"
+echo "massa_mewka     : $massa_mewka"
 massa_korobki_gr="$(echo "scale=4; ${max_fill} * ${massa_preform}" | bc)"
 massa_korobki_kg=$(echo "scale=4; ${massa_korobki_gr} / 1000" | bc)
 
