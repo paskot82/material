@@ -770,7 +770,6 @@ fi
 
 if [[ "$material" == "true" ]];then
 
-
 #massa_mewka="1153.8"
 #massa_preform="10.5"
 
@@ -817,16 +816,23 @@ echo "first_mewok_start: $first_mewok_start ($(to_hms ${first_mewok_start}))"
 time_mewok=$first_mewok_start
 ne_moi_mewok=$(($time_mewok-$sec_mewok))
 
-echo " + ${RED} $(to_hms ${ne_moi_mewok}) ${NC}"
+#echo " + ${RED} $(to_hms ${ne_moi_mewok}) ${NC}"
 
-echo " + ${BLUE} $(to_hms ${time_mewok}) ${NC}"
+echo " + ${YELLOW} $(to_hms ${time_mewok}) ${NC}"
 
 while [ $time_mewok -lt $current_shift_end ]; do
 time_mewok=$(($time_mewok+$sec_mewok))
-echo " + ${BLUE} $(to_hms ${time_mewok}) ${NC}($time_mewok) "
+if [[ $time_mewok -le $current_shift_end ]]; then
+   # echo "${BLUE}"
+	CCC="${BLUE}"
+else
+   # echo "${YELLOW}"
+	CCC="${YELLOW}"
+fi
+echo "${NC} + ${CCC} $(to_hms ${time_mewok}) ${NC}($time_mewok) "
 done
 ne_moi_mewok=$(($time_mewok+$sec_mewok))
-echo " + ${RED} $(to_hms ${ne_moi_mewok}) ${NC}"
+#echo " + ${RED} $(to_hms ${ne_moi_mewok}) ${NC}"
 
 fi
 show_errors
